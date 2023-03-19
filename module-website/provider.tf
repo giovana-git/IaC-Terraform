@@ -6,13 +6,13 @@ terraform {
     }
   }
 
-    backend "s3" {
-      bucket = "g-backend-terraform"
-      key    = "terraform/state/terraform.tfstate"
-      region = "us-east-2"
-    }
+  backend "s3" {
+    bucket = "gc-state-terraform"
+    key    = "terraform/state/terraform.tfstate"
+    region = "us-east-2"
+  }
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region = "us-east-1"
 }
