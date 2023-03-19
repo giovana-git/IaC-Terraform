@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "website-bucket" {
 
-  bucket = "gc-website-bucket"
+  bucket = "website-bucket-gc"
 }
 
 resource "aws_s3_bucket_policy" "s3-policy" {
@@ -15,7 +15,7 @@ resource "aws_s3_bucket_policy" "s3-policy" {
 			"Effect": "Allow",
 			"Principal": "*",
 			"Action": "s3:GetObject",
-			"Resource": "arn:aws:s3:::gc-website-bucket/*"
+			"Resource": "arn:aws:s3:::website-bucket-gc/*"
 		}
 	]
 }
