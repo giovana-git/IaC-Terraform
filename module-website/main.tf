@@ -1,5 +1,7 @@
 module "cloudfront" {
   source = "./cloudfront"
+
+  bucket_id = module.s3.bucket_id
 }
 
 module "route53" {
