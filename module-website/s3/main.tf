@@ -39,7 +39,14 @@ resource "aws_s3_object" "object-website" {
   bucket       = aws_s3_bucket.website-bucket.id
   key          = "index.html"
   source       = "./website/index.html"
-  acl          = "public-read"
+  acl          = var.acl[1]
   content_type = "text/html"
+}
 
+resource "aws_s3_object" "css-object" {
+  bucket       = aws_s3_bucket.website-bucket.id
+  key          = "index.css"
+  source       = "./website/index.css"
+  acl          = var.acl[1]
+  content_type = "text/css"
 }
