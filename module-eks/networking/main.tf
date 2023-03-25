@@ -1,5 +1,3 @@
-# Bloco resource é onde você irá definir suas configurações no seu provider definido. Os parâmetros para este bloco depende do recurso que você estará criando, por exemplo uma instancia (instance_type = tal)
-
 resource "aws_vpc" "vpc-eks" {
 
   cidr_block         = var.cidr_block

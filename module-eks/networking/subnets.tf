@@ -1,4 +1,4 @@
-resource "aws_subnet" "private_subnets" {
+resource "aws_subnet" "private-subnets" {
 
   count                   = 2
   vpc_id                  = aws_vpc.vpc-eks.id
