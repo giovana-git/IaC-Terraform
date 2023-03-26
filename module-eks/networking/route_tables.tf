@@ -56,45 +56,45 @@ resource "aws_eip" "eip-nat" {
 
 resource "aws_nat_gateway" "nat-eks" {
 
-    count         = 1
-    allocation_id = aws_eip.eip-nat.id
-    subnet_id     = element(aws_subnet.public-subnets.*.id, count.index)
+  count         = 1
+  allocation_id = aws_eip.eip-nat.id
+  subnet_id     = element(aws_subnet.public-subnets.*.id, count.index)
 
-    tags = {
-        "Name"       = "nat-${var.tag["Name"]}"
-        "Enviroment" = "${var.tag["Enviroment"]}"
-        "Owner"      = "${var.tag["Owner"]}"
-    }
+  tags = {
+    "Name"       = "nat-${var.tag["Name"]}"
+    "Enviroment" = "${var.tag["Enviroment"]}"
+    "Owner"      = "${var.tag["Owner"]}"
+  }
 }
 
 #   PRIVATE ROUTE TABLE
 
 resource "aws_route_table" "private-route-table" {
 
-    count = 1
-    vpc_id = aws_vpc.vpc-eks.id
+  count  = 1
+  vpc_id = aws_vpc.vpc-eks.id
 
-    route {
-        cidr_block = "0.0.0.0/0"
-        gateway_id = element(aws_nat_gateway.nat-eks.*.id, count.index)
-    }
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = element(aws_nat_gateway.nat-eks.*.id, count.index)
+  }
 
-    tags = {
-        "Name"       = "private-route-${var.tag["Name"]}"
-        "Enviroment" = "${var.tag["Enviroment"]}"
-        "Owner"      = "${var.tag["Owner"]}"
-    }
+  tags = {
+    "Name"       = "private-route-${var.tag["Name"]}"
+    "Enviroment" = "${var.tag["Enviroment"]}"
+    "Owner"      = "${var.tag["Owner"]}"
+  }
 
-    depends_on = [
-      aws_nat_gateway.nat-eks
-    ]
+  depends_on = [
+    aws_nat_gateway.nat-eks
+  ]
 }
 
 #   ASSOCIATION PRIVATE ROUTE TABLE
 
 resource "aws_route_table_association" "ass-private-route-table" {
 
-    count          = length(var.private_subnets)
-    route_table_id = element(aws_route_table.private-route-table.*.id, count.index)
-    subnet_id      = element(aws_subnet.private-subnets.*.id, count.index)
+  count          = length(var.private_subnets)
+  route_table_id = element(aws_route_table.private-route-table.*.id, count.index)
+  subnet_id      = element(aws_subnet.private-subnets.*.id, count.index)
 }
