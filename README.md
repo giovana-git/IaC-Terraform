@@ -1,2 +1,2 @@
-# TerraformAssociate
-Laboratórios realizados para o exame HashiCorp Terraform Associate 002.
+# Terraform
+Repositório destinado aos laboratórios realizados para a prática da implementação de infraestruturas utilizando Terraform.
