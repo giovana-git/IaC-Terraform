@@ -75,7 +75,7 @@ resource "aws_route_table" "private-route-table" {
   vpc_id = aws_vpc.vpc-eks.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = element(aws_nat_gateway.nat-eks.*.id, count.index)
   }
 
